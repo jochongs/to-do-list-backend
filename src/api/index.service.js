@@ -1,7 +1,7 @@
+const { todoRepository, userRepository } = require('./index.repository');
 const HashService = require('../common/hash.service');
 const JwtService = require('../common/jwt.service');
 const AuthService = require('./auth/auth.service');
-const { todoRepository, userRepository } = require('./index.repository');
 const TodoService = require('./todo/todo.service');
 const UserService = require('./user/user.service');
 
