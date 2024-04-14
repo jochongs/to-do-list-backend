@@ -9,7 +9,6 @@ module.exports = class UserRepository {
     pool;
 
     /**
-     *
      * @param {import('pg').Pool} pool
      */
     constructor(pool) {
@@ -18,6 +17,7 @@ module.exports = class UserRepository {
 
     /**
      * Select user by idx
+     *
      * @param {number} idx
      * @param {import('pg').PoolClient | undefined} conn
      * @return {Promise<User | null>}
