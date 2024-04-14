@@ -1,4 +1,5 @@
 const CreateTodoDto = require('./dto/create-todo.dto');
+const GetTodoDto = require('./dto/get-todo.dto');
 const UpdateTodoDto = require('./dto/update-todo.dto');
 const TodoEntity = require('./entity/todo.entity');
 const TodoNotFoundException = require('./exception/TodoNotFoundException');
@@ -12,6 +13,23 @@ module.exports = class TodoService {
      */
     constructor(todoRepository) {
         this.todoRepository = todoRepository;
+    }
+
+    /**
+     * Get todo by user idx
+     *
+     * @param {GetTodoDto} getDto
+     * @returns {{
+     *  todoList: TodoEntity[]
+     * }}
+     */
+    async getTodoIdx(getDto) {
+        const todoList = await this.todoRepository.select({
+            page: getDto.page,
+            userIdx: getDto.user,
+        });
+
+        return todoList.map((todo) => TodoEntity.createToDoEntity(todo));
     }
 
     /**
