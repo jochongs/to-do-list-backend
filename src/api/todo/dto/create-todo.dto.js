@@ -28,6 +28,7 @@ module.exports = class CreateTodoDto {
         if (!data.contents) {
             throw new BadRequestException('Invalid contents');
         }
+
         return new CreateTodoDto({
             title: data.contents,
             contents: data.contents,
