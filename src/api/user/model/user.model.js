@@ -7,6 +7,11 @@ class User {
     /**
      * @type {string}
      */
+    nickname;
+
+    /**
+     * @type {string}
+     */
     id;
 
     /**
