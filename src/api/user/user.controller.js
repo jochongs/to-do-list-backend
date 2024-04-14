@@ -40,4 +40,12 @@ module.exports = class UserController {
 
         res.status(201).end();
     }
+
+    async withdrawal(req, res) {
+        const loginUser = LoginUserEntity.createLoginUserEntity(req.user);
+
+        await this.userService.deleteUserByIdx(loginUser.idx);
+
+        res.status(201).end();
+    }
 };
