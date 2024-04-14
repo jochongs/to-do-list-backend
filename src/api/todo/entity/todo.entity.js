@@ -1,4 +1,4 @@
-const ToDo = require('../model/todo.model');
+const Todo = require('../model/todo.model');
 
 class Author {
     /**
@@ -12,7 +12,7 @@ class Author {
     nickname;
 }
 
-module.exports = class ToDoEntity {
+module.exports = class TodoEntity {
     /**
      * @type {number}
      */
@@ -55,10 +55,10 @@ module.exports = class ToDoEntity {
     }
 
     /**
-     * @param {ToDo} todo
+     * @param {Todo} todo
      */
     static createToDoEntity(todo) {
-        return new ToDoEntity({
+        return new TodoEntity({
             idx: todo.idx,
             author: {
                 idx: todo.userIdx,

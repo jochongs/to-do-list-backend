@@ -1,4 +1,4 @@
-module.exports = class ToDo {
+module.exports = class Todo {
     /**
      * @type {number}
      */
