@@ -1,4 +1,3 @@
-const pgPool = require('../../common/database/pgPool');
 const HashService = require('../../common/hash.service');
 const SignUpDto = require('./dto/sign-up.dto');
 const UpdateUserDto = require('./dto/update-user.dto');
@@ -32,7 +31,7 @@ module.exports = class UserService {
      * @throws {DuplicateIdException}
      */
     async signUp(signUpDto) {
-        const conn = await pgPool.connect();
+        const conn = await this.pgPool.connect();
         try {
             const idDuplicateUser = await this.userRepository.selectById(signUpDto.id, conn);
 
