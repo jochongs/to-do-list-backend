@@ -15,14 +15,14 @@ module.exports = class TodoRepository {
     }
 
     /**
-     * Create todo
+     * Insert todo
      *
      * @param {number} userIdx
      * @param {CreateTodoDao} createDao
      * @param {import('pg').PoolClient | undefined} conn
-     * @returns {Promise<Todo | null>}
+     * @returns {Promise<Todo>}
      */
-    async createTodo(userIdx, createDao, conn = this.pool) {
+    async insertTodo(userIdx, createDao, conn = this.pool) {
         const queryResult = await conn.query(
             `INSERT INTO todo_tb
                 (user_idx, title, contens)
@@ -44,5 +44,38 @@ module.exports = class TodoRepository {
         );
 
         return queryResult.rows[0];
+    }
+
+    /**
+     * Select todo by idx
+     *
+     * @param {number} idx
+     * @param {import('pg').PoolClient | undefined} conn
+     * @returns {Promise<Todo | null>}
+     */
+    async selectTodoByIdx(idx, conn = this.pool) {
+        const queryResult = await conn.query(
+            `SELECT
+                idx,
+                user_idx AS "userIdx",
+                user_tb.nickname AS "userNickname",
+                title,
+                contents,
+                created_at AS "createAt",
+                deleted_at AS "deletedAt"
+            FROM
+                todo_tb
+            JOIN
+                user_tb
+            ON
+                user_tb.idx = todo_tb.user_idx
+            WHERE
+                idx = $1
+            AND
+                deleted_at IS NULL`,
+            [idx]
+        );
+
+        return queryResult.rows[0] || null;
     }
 };
