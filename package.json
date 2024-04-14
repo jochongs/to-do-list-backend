@@ -3,7 +3,11 @@
     "version": "0.0.1",
     "description": "to-do-list with 3-Layer-Architecture",
     "main": "./src/server.js",
-    "scripts": {},
+    "scripts": {
+        "start": "node ./src/server.js",
+        "dev": "nodemon",
+        "test": "jest ./test"
+    },
     "author": "",
     "license": "ISC",
     "dependencies": {
