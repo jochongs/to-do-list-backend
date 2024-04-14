@@ -80,4 +80,14 @@ module.exports = class UserService {
             nickname: updateDto.nickname,
         });
     }
+
+    /**
+     * Delete user by idx
+     *
+     * @param {number} idx
+     * @returns {Promise<void>}
+     */
+    async deleteUserByIdx(idx) {
+        await this.userRepository.deleteByUserIdx(idx);
+    }
 };
