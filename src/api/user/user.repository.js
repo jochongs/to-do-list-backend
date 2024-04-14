@@ -141,7 +141,7 @@ module.exports = class UserRepository {
      * @param {import('pg').PoolClient | undefined} conn
      * @returns {Promise<void>}
      */
-    async deleteByUserIdx(idx, conn) {
+    async deleteByIdx(idx, conn) {
         await conn.query(
             `UPDATE 
                 user_tb 

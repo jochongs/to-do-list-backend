@@ -32,13 +32,13 @@ module.exports = class UserService {
     async signUp(signUpDto) {
         const conn = await pgPool.connect();
         try {
-            const idDuplicateUser = await this.userRepository.selectUserById(signUpDto.id, conn);
+            const idDuplicateUser = await this.userRepository.selectById(signUpDto.id, conn);
 
             if (idDuplicateUser) {
                 throw new DuplicateIdException('Duplicated Id');
             }
 
-            await this.userRepository.insertUser({
+            await this.userRepository.insert({
                 id: signUpDto.id,
                 nickname: signUpDto.nickname,
                 pw: this.hashService.hash(signUpDto.pw),
@@ -59,7 +59,7 @@ module.exports = class UserService {
      * @throws {UserNotFoundException}
      */
     async getUserByIdx(idx) {
-        const user = await this.userRepository.selectUserByIdx(idx);
+        const user = await this.userRepository.selectByIdx(idx);
 
         if (!user) {
             throw new NotFoundException('Cannot find user');
@@ -76,7 +76,7 @@ module.exports = class UserService {
      * @returns {Promise<void>}
      */
     async updateUserByIdx(idx, updateDto) {
-        await this.userRepository.updateUserByIdx(idx, {
+        await this.userRepository.updateByIdx(idx, {
             nickname: updateDto.nickname,
         });
     }
@@ -88,6 +88,6 @@ module.exports = class UserService {
      * @returns {Promise<void>}
      */
     async deleteUserByIdx(idx) {
-        await this.userRepository.deleteByUserIdx(idx);
+        await this.userRepository.deleteByIdx(idx);
     }
 };
