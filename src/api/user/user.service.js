@@ -2,6 +2,7 @@ const HashService = require('../../common/hash.service');
 const pgPool = require('../../database/pgPool');
 const NotFoundException = require('../../exception/NotFoundException');
 const SignUpDto = require('./dto/sign-up.dto');
+const UpdateUserDto = require('./dto/update-user.dto');
 const UserEntity = require('./entity/user.entity');
 const DuplicateIdException = require('./exception/DuplicateIdException');
 const UserNotFoundException = require('./exception/UserNotFoundException');
@@ -65,5 +66,18 @@ module.exports = class UserService {
         }
 
         return UserEntity.createUserEntity(user);
+    }
+
+    /**
+     * Update user nickname
+     *
+     * @param {number} idx
+     * @param {UpdateUserDto} updateDto
+     * @returns {Promise<void>}
+     */
+    async updateUserByIdx(idx, updateDto) {
+        await this.userRepository.updateUserByIdx(idx, {
+            nickname: updateDto.nickname,
+        });
     }
 };
