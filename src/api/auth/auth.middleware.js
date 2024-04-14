@@ -12,24 +12,27 @@ module.exports = class AuthMiddleware {
     }
 
     /**
+     * Check jwt in authorization header
      *
      * @param {import('express').Request} req
      */
-    async isLogin(req, res, next) {
-        const [tokenType, token] = req.headers.authorization?.split(' ') || [];
+    async isLogin() {
+        return async (req, res, next) => {
+            const [tokenType, token] = req.headers.authorization?.split(' ') || [];
 
-        if (tokenType !== 'Bearer' || !token) {
-            throw new InvalidLoginTokenException('No token');
-        }
+            if (tokenType !== 'Bearer' || !token) {
+                throw new InvalidLoginTokenException('No token');
+            }
 
-        try {
-            const payload = await this.jwtService.verify(token);
+            try {
+                const payload = await this.jwtService.verify(token);
 
-            req.user = payload;
+                req.user = payload;
 
-            next();
-        } catch (err) {
-            throw new InvalidLoginTokenException('Invalid login token');
-        }
+                next();
+            } catch (err) {
+                throw new InvalidLoginTokenException('Invalid login token');
+            }
+        };
     }
 };
