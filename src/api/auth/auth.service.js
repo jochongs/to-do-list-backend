@@ -36,7 +36,7 @@ module.exports = class AuthService {
             throw new InvalidIdOrPwException('Invalid id');
         }
 
-        if (this.hashService.compare(loginDto.pw, user.pw)) {
+        if (!this.hashService.compare(loginDto.pw, user.pw)) {
             throw new InvalidIdOrPwException('Invalid pw');
         }
 
