@@ -1,4 +1,4 @@
-const { BadRequestException } = require('../../../exception/BadRequestException');
+const BadRequestException = require('../../../common/exception/BadRequestException');
 
 module.exports = class CreateTodoDto {
     title;

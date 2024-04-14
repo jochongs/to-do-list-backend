@@ -1,4 +1,4 @@
-const ForbiddenException = require('../../../exception/ForbiddenException');
+const ForbiddenException = require('../../../common/exception/ForbiddenException');
 
 module.exports = class PermissionDeniedException extends ForbiddenException {
     /**

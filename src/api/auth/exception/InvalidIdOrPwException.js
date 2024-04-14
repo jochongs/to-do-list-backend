@@ -1,4 +1,4 @@
-const UnauthorizedException = require('../../../exception/UnauthorizedException');
+const UnauthorizedException = require('../../../common/exception/UnauthorizedException');
 
 module.exports = class InvalidIdOrPwException extends UnauthorizedException {
     /**

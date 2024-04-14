@@ -1,6 +1,6 @@
-import Exception from './Exception';
+const Exception = require('./Exception');
 
-export class BadRequestException extends Exception {
+module.exports = class BadRequestException extends Exception {
     /**
      * @param {string} message
      * @param {any} err
@@ -8,4 +8,4 @@ export class BadRequestException extends Exception {
     constructor(message, err) {
         super(400, message, err);
     }
-}
+};

@@ -1,4 +1,4 @@
-const ConflictException = require('../../../exception/ConflictException');
+const ConflictException = require('../../../common/exception/ConflictException');
 
 module.exports = class DuplicateIdException extends ConflictException {
     /**
