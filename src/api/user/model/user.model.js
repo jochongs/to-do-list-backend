@@ -1,4 +1,4 @@
-class User {
+module.exports = class User {
     /**
      * @type {number}
      */
@@ -28,4 +28,4 @@ class User {
      * @type {string}
      */
     deletedAt;
-}
+};

@@ -1,6 +1,7 @@
 const InsertUserDao = require('./dao/insert-user.dao');
 const UpdateUserDao = require('./dao/update-user.dao');
 const UserNotFoundException = require('./exception/UserNotFoundException');
+const User = require('./model/user.model');
 
 module.exports = class UserRepository {
     /**
