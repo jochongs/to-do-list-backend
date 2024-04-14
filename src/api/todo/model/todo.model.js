@@ -25,7 +25,12 @@ module.exports = class Todo {
     contents;
 
     /**
-     * @type {Date}
+     * @type {string}
      */
     createdAt;
+
+    /**
+     * @type {string}
+     */
+    deletedAt;
 };
