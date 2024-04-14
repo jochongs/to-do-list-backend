@@ -1,13 +1,69 @@
+const HashService = require('../../common/hash.service');
+const pgPool = require('../../database/pgPool');
+const NotFoundException = require('../../exception/NotFoundException');
 const SignUpDto = require('./dto/sign-up.dto');
+const UserEntity = require('./entity/user.entity');
+const DuplicateIdException = require('./exception/DuplicateIdException');
+const UserNotFoundException = require('./exception/UserNotFoundException');
 const UserRepository = require('./user.repository');
 
 module.exports = class UserService {
     userRepository;
+    hashService;
 
     /**
      * @param {UserRepository} userRepository
+     * @param {HashService} hashService
      */
-    constructor(userRepository) {
+    constructor(userRepository, hashService) {
         this.userRepository = userRepository;
+        this.hashService = hashService;
+    }
+
+    /**
+     * Sign Up
+     *
+     * @param {SignUpDto} signUpDto
+     * @returns {Promise<void>}
+     *
+     * @throws {DuplicateIdException}
+     */
+    async signUp(signUpDto) {
+        const conn = await pgPool.connect();
+        try {
+            const idDuplicateUser = await this.userRepository.selectUserById(signUpDto.id, conn);
+
+            if (idDuplicateUser) {
+                throw new DuplicateIdException('Duplicated Id');
+            }
+
+            await this.userRepository.insertUser({
+                id: signUpDto.id,
+                nickname: signUpDto.nickname,
+                pw: this.hashService.hash(signUpDto.pw),
+            });
+        } catch (err) {
+            throw err;
+        } finally {
+            conn.release();
+        }
+    }
+
+    /**
+     * Get user by idx
+     *
+     * @param {number} idx
+     * @returns {Promise<UserEntity>}
+     *
+     * @throws {UserNotFoundException}
+     */
+    async getUserByIdx(idx) {
+        const user = await this.userRepository.selectUserByIdx(idx);
+
+        if (!user) {
+            throw new NotFoundException('Cannot find user');
+        }
+
+        return UserEntity.createUserEntity(user);
     }
 };
