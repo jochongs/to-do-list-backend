@@ -1,5 +1,6 @@
 const LoginUserEntity = require('../auth/entity/LoginUserEntity');
 const CreateTodoDto = require('./dto/create-todo.dto');
+const GetTodoDto = require('./dto/get-todo.dto');
 const UpdateTodoDto = require('./dto/update-todo.dto');
 const PermissionDeniedException = require('./exception/PermissionDeniedException');
 const TodoService = require('./todo.service');
@@ -12,6 +13,20 @@ module.exports = class TodoController {
      */
     constructor(todoService) {
         this.todoService = todoService;
+    }
+
+    async getMyTodo(req, res) {
+        const loginUser = LoginUserEntity.createLoginUserEntity(req.user);
+        const getMyTodoDto = GetTodoDto.createGetTodoDto({
+            page: req.query.page,
+            user: loginUser.idx,
+        });
+
+        const todoList = await this.todoService.getTodoAll(getMyTodoDto);
+
+        res.status(200).send({
+            todoList,
+        });
     }
 
     async createTodo(req, res) {
