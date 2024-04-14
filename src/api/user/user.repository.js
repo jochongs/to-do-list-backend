@@ -70,7 +70,7 @@ module.exports = class UserRepository {
             [id]
         );
 
-        return queryResult.rows[0];
+        return queryResult.rows[0] || null;
     }
 
     /**
