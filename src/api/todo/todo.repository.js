@@ -1,4 +1,5 @@
 const CreateTodoDao = require('./dao/create-todo.dao');
+const SelectTodoDao = require('./dao/select-todo.dao');
 const UpdateTodoDao = require('./dao/update-todo.dao');
 const Todo = require('./model/todo.model');
 
@@ -46,6 +47,40 @@ module.exports = class TodoRepository {
         );
 
         return queryResult.rows[0] || null;
+    }
+
+    /**
+     * Select todo all
+     *
+     * @param {SelectTodoDao} selectDao
+     * @param {Promise<Todo[]>}
+     */
+    async select(selectDao, conn = this.pool) {
+        const queryResult = await conn.query(
+            `SELECT
+                idx,
+                user_idx AS "userIdx",
+                user_tb.nickname AS "userNickname",
+                title,
+                contents,
+                created_at AS "createAt",
+                deleted_at AS "deletedAt"
+            FROM
+                todo_tb
+            JOIN
+                user_tb
+            ON
+                user_tb.idx = todo_tb.user_idx
+            WHERE
+            ${selectDao.userIdx ? `user_idx = $2` : ``}
+            LIMIT
+                10
+            OFFSET
+                ($1 - 1) * 10`,
+            [selectDao.page, selectDao.userIdx]
+        );
+
+        return queryResult.rows;
     }
 
     /**
