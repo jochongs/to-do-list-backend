@@ -30,7 +30,7 @@ module.exports = class AuthService {
      * @returns {Promise<{ jwt: string }>}
      */
     async login(loginDto) {
-        const user = await this.userRepository.selectUserById(loginDto.id);
+        const user = await this.userRepository.selectById(loginDto.id);
 
         if (!user) {
             throw new InvalidIdOrPwException('Invalid id');
