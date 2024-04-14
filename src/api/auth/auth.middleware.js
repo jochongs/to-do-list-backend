@@ -14,7 +14,7 @@ module.exports = class AuthMiddleware {
     /**
      * Check jwt in authorization header
      *
-     * @param {import('express').Request} req
+     * @returns {import('express').RequestHandler}
      */
     async isLogin() {
         return async (req, res, next) => {
