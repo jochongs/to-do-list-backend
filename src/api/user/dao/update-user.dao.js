@@ -1,16 +1,16 @@
 module.exports = class UpdateUserDao {
     /**
-     * @type {string}
+     * @type {string | undefined}
      */
     nickname;
 
     /**
-     * @type {string}
+     * @type {string | undefined}
      */
     id;
 
     /**
-     * @type {string}
+     * @type {string | undefined}
      */
     pw;
 };
