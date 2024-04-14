@@ -23,7 +23,7 @@ module.exports = class TodoService {
      *  todoList: TodoEntity[]
      * }}
      */
-    async getTodoIdx(getDto) {
+    async getTodoAll(getDto) {
         const todoList = await this.todoRepository.select({
             page: getDto.page,
             userIdx: getDto.user,
