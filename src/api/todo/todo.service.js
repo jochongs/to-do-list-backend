@@ -33,6 +33,9 @@ module.exports = class TodoService {
      * Get todo by idx
      *
      * @param {number} idx
+     * @returns {Promise<TodoEntity>}
+     *
+     * @throws {TodoNotFoundException}
      */
     async getTodoByIdx(idx) {
         const todo = await this.todoRepository.selectByIdx(idx);
