@@ -1,4 +1,4 @@
-module.exports = class Exception {
+module.exports = class Exception extends Error {
     /**
      * @type {number}
      */
@@ -20,6 +20,7 @@ module.exports = class Exception {
      * @param {any} err
      */
     constructor(status, message, err = null) {
+        super(err);
         this.status = status;
         this.message = message;
         this.err = err;
