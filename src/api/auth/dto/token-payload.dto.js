@@ -1,4 +1,4 @@
-module.exports = class TokenPayload {
+module.exports = class TokenPayloadDto {
     /**
      * @type {idx}
      */
