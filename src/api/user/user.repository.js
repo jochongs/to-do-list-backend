@@ -22,7 +22,7 @@ module.exports = class UserRepository {
      * @param {import('pg').PoolClient | undefined} conn
      * @return {Promise<User | null>}
      */
-    async selectUserByIdx(idx, conn = this.pool) {
+    async selectByIdx(idx, conn = this.pool) {
         const queryResult = await conn.query(
             `SELECT 
                 idx,
@@ -52,7 +52,7 @@ module.exports = class UserRepository {
      * @param {import('pg').PoolClient | undefined} conn
      * @return {Promise<User | null>}
      */
-    async selectUserById(id, conn = this.pool) {
+    async selectById(id, conn = this.pool) {
         const queryResult = await conn.query(
             `SELECT
                 idx,
@@ -80,7 +80,7 @@ module.exports = class UserRepository {
      * @param {import('pg').PoolClient | undefined} conn
      * @param {Promise<User>}
      */
-    async insertUser(insertDao, conn = this.pool) {
+    async insert(insertDao, conn = this.pool) {
         const queryResult = await conn.query(
             `INSERT INTO user_tb 
                 (id, nickname, pw) 
@@ -107,7 +107,7 @@ module.exports = class UserRepository {
      * @param {import('pg').PoolClient | undefined} conn
      * @returns {Promise<void>}
      */
-    async updateUserByIdx(idx, updateDao, conn = this.pool) {
+    async updateByIdx(idx, updateDao, conn = this.pool) {
         let queryParams = [idx];
         let query = `UPDATE user_tb SET`;
 
