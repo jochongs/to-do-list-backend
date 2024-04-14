@@ -1,4 +1,5 @@
 const CreateTodoDto = require('./dto/create-todo.dto');
+const UpdateTodoDto = require('./dto/update-todo.dto');
 const TodoEntity = require('./entity/todo.entity');
 const TodoNotFoundException = require('./exception/TodoNotFoundException');
 const TodoRepository = require('./todo.repository');
@@ -45,5 +46,19 @@ module.exports = class TodoService {
         }
 
         return TodoEntity.createToDoEntity(todo);
+    }
+
+    /**
+     * Update todo by idx
+     *
+     * @param {number} idx
+     * @param {UpdateTodoDto} updateDto
+     * @returns {Promise<void>}
+     */
+    async updateTodoByIdx(idx, updateDto) {
+        await this.todoRepository.updateByIdx(idx, {
+            title: updateDto.title,
+            contents: updateDto.contents,
+        });
     }
 };
