@@ -25,8 +25,9 @@ module.exports = class AuthService {
     }
 
     /**
-     * @param {LoginDto} loginDto
+     * Login
      *
+     * @param {LoginDto} loginDto
      * @returns {Promise<{ jwt: string }>}
      */
     async login(loginDto) {
