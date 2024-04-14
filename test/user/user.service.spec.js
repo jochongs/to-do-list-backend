@@ -56,6 +56,10 @@ describe('UserService', () => {
                 pw: 'password12!@',
             })
         ).resolves.toBeUndefined();
+        expect(pgPool.connect).toHaveBeenCalledTimes(1);
+        expect(userRepository.selectById).toHaveBeenCalledTimes(1);
+        expect(hashService.hash).toHaveBeenCalledTimes(1);
+        expect(userRepository.insert).toHaveBeenCalledTimes(1);
     });
 
     it('signUp fail - duplicate user', async () => {
