@@ -41,4 +41,19 @@ module.exports = class TodoController {
 
         res.status(201).end();
     }
+
+    async deleteTodo(req, res) {
+        const loginUser = LoginUserEntity.createLoginUserEntity(req.user);
+        const todoIdx = Number(req.params.idx);
+
+        const todoEntity = await this.todoService.getTodoByIdx(todoIdx);
+
+        if (todoEntity.author.idx !== loginUser.idx) {
+            throw new PermissionDeniedException('Permission denied');
+        }
+
+        await this.todoService.deleteTodoByIdx(todoIdx);
+
+        res.status(201).end();
+    }
 };
