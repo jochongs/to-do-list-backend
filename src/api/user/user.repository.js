@@ -108,17 +108,29 @@ module.exports = class UserRepository {
      * @returns {Promise<void>}
      */
     async updateUserByIdx(idx, updateDao, conn = this.pool) {
-        await conn.query(
-            `UPDATE 
-                user_tb
-            SET 
-                nickname = $2,
-                id = $3,
-                pw = $4
-            WHERE
-                idx = $1`,
-            [idx, updateDao.nickname, updateDao.id, updateDao.pw]
-        );
+        let queryParams = [idx];
+        let query = `UPDATE user_tb SET`;
+
+        if (updateDao.nickname) {
+            query += ` nickname = $${queryParams.length + 1},`;
+            queryParams.push(updateDao.nickname);
+        }
+
+        if (updateDao.id) {
+            query += ` id = $${queryParams.length + 1},`;
+            queryParams.push(updateDao.id);
+        }
+
+        if (updateDao.pw) {
+            query += ` pw = $${queryParams.length + 1},`;
+            queryParams.push(updateDao.pw);
+        }
+
+        query = query.replace(/,$/, '');
+
+        query += ` WHERE idx = $1`;
+
+        await conn.query(query, queryParams);
     }
 
     /**
