@@ -100,4 +100,24 @@ module.exports = class TodoRepository {
             [idx, updateDao.title, updateDao.contents]
         );
     }
+
+    /**
+     * Delete todo by idx
+     * Soft delete
+     *
+     * @param {number} idx
+     * @param {import('pg').PoolClient | undefined} conn
+     * @return
+     */
+    async deleteByIdx(idx, conn = this.pool) {
+        await conn.query(
+            `UPDATE
+                todo_tb
+            SET
+                deleted_at = NOW()
+            WHERE
+                idx = $1`,
+            [idx]
+        );
+    }
 };
