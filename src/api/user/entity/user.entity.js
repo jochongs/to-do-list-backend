@@ -1,3 +1,5 @@
+const User = require('../model/user.model');
+
 module.exports = class UserEntity {
     /**
      * @type {number}
