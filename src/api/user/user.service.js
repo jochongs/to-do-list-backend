@@ -1,6 +1,5 @@
+const pgPool = require('../../common/database/pgPool');
 const HashService = require('../../common/hash.service');
-const pgPool = require('../../database/pgPool');
-const NotFoundException = require('../../exception/NotFoundException');
 const SignUpDto = require('./dto/sign-up.dto');
 const UpdateUserDto = require('./dto/update-user.dto');
 const UserEntity = require('./entity/user.entity');
@@ -62,7 +61,7 @@ module.exports = class UserService {
         const user = await this.userRepository.selectByIdx(idx);
 
         if (!user) {
-            throw new NotFoundException('Cannot find user');
+            throw new UserNotFoundException('Cannot find user');
         }
 
         return UserEntity.createUserEntity(user);
