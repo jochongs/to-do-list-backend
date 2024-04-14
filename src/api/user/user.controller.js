@@ -1,6 +1,7 @@
 const AuthService = require('../auth/auth.service');
 const LoginUserEntity = require('../auth/entity/LoginUserEntity');
 const SignUpDto = require('./dto/sign-up.dto');
+const UpdateUserDto = require('./dto/update-user.dto');
 const UserService = require('./user.service');
 
 module.exports = class UserController {
@@ -29,5 +30,14 @@ module.exports = class UserController {
         res.status(200).send({
             user: userEntity,
         });
+    }
+
+    async updateMyInfo(req, res) {
+        const loginUser = LoginUserEntity.createLoginUserEntity(req.user);
+        const updateDto = UpdateUserDto.createUpdateDto(req.body);
+
+        await this.userService.updateUserByIdx(loginUser.idx, updateDto);
+
+        res.status(201).end();
     }
 };
