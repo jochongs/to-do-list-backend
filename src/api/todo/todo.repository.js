@@ -1,4 +1,5 @@
 const CreateTodoDao = require('./dao/create-todo.dao');
+const UpdateTodoDao = require('./dao/update-todo.dao');
 const Todo = require('./model/todo.model');
 
 module.exports = class TodoRepository {
@@ -77,5 +78,26 @@ module.exports = class TodoRepository {
         );
 
         return queryResult.rows[0] || null;
+    }
+
+    /**
+     * Update todo by idx
+     *
+     * @param {number} idx
+     * @param {UpdateTodoDao} updateDao
+     * @param {import('pg').PoolClient | undefined} conn
+     * @returns {Promise<void>}
+     */
+    async updateTodoByIdx(idx, updateDao, conn = this.pool) {
+        await conn.query(
+            `UPDATE 
+                todo_tb
+            SET
+                title = $2,
+                contents = $3
+            WHERE
+                idx = $1`,
+            [idx, updateDao.title, updateDao.contents]
+        );
     }
 };
