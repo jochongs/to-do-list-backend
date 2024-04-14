@@ -1,0 +1,9 @@
+{
+    "name": "to-do-list-backend",
+    "version": "0.0.1",
+    "description": "to-do-list with 3-Layer-Architecture",
+    "main": "./src/server.js",
+    "scripts": {},
+    "author": "",
+    "license": "ISC"
+}
