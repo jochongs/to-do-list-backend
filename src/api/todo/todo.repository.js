@@ -23,7 +23,7 @@ module.exports = class TodoRepository {
      * @param {import('pg').PoolClient | undefined} conn
      * @returns {Promise<Todo>}
      */
-    async insertTodo(userIdx, createDao, conn = this.pool) {
+    async insert(userIdx, createDao, conn = this.pool) {
         const queryResult = await conn.query(
             `INSERT INTO todo_tb
                 (user_idx, title, contens)
@@ -54,7 +54,7 @@ module.exports = class TodoRepository {
      * @param {import('pg').PoolClient | undefined} conn
      * @returns {Promise<Todo | null>}
      */
-    async selectTodoByIdx(idx, conn = this.pool) {
+    async selectByIdx(idx, conn = this.pool) {
         const queryResult = await conn.query(
             `SELECT
                 idx,
@@ -88,7 +88,7 @@ module.exports = class TodoRepository {
      * @param {import('pg').PoolClient | undefined} conn
      * @returns {Promise<void>}
      */
-    async updateTodoByIdx(idx, updateDao, conn = this.pool) {
+    async updateByIdx(idx, updateDao, conn = this.pool) {
         await conn.query(
             `UPDATE 
                 todo_tb
