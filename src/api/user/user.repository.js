@@ -46,6 +46,34 @@ module.exports = class UserRepository {
     }
 
     /**
+     * Select by user id
+     *
+     * @param {string} id
+     * @param {import('pg').PoolClient | undefined} conn
+     * @return {Promise<User | null>}
+     */
+    async selectUserById(id, conn = this.pool) {
+        const queryResult = await conn.query(
+            `SELECT
+                idx,
+                nickname,
+                id,
+                pw,
+                created_at AS "createdAt",
+                deleted_at AS "deletedAt"
+            FROM
+                user_tb
+            WHERE
+                id = $1,
+            AND
+                deleted_at IS NULL`,
+            [id]
+        );
+
+        return queryResult.rows[0];
+    }
+
+    /**
      * Insert user by idx
      *
      * @param {InsertUserDao} insertDao
