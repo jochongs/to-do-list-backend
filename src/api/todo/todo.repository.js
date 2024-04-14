@@ -16,38 +16,6 @@ module.exports = class TodoRepository {
     }
 
     /**
-     * Insert todo
-     *
-     * @param {number} userIdx
-     * @param {CreateTodoDao} createDao
-     * @param {import('pg').PoolClient | undefined} conn
-     * @returns {Promise<Todo>}
-     */
-    async insert(userIdx, createDao, conn = this.pool) {
-        const queryResult = await conn.query(
-            `INSERT INTO todo_tb
-                (user_idx, title, contens)
-            VALUES
-                ($1, $2, $3)
-            RETURNING
-                idx,
-                user_idx AS "userIdx",
-                user_tb.nickname AS "userNickname",
-                title,
-                contents,
-                created_at AS "createdAt",
-                deleted_at AS "deletedAt"
-            JOIN
-                user_tb
-            ON
-                user_tb.idx = todo_tb.user_idx`,
-            [userIdx, createDao.title, createDao.contents]
-        );
-
-        return queryResult.rows[0];
-    }
-
-    /**
      * Select todo by idx
      *
      * @param {number} idx
@@ -78,6 +46,38 @@ module.exports = class TodoRepository {
         );
 
         return queryResult.rows[0] || null;
+    }
+
+    /**
+     * Insert todo
+     *
+     * @param {number} userIdx
+     * @param {CreateTodoDao} createDao
+     * @param {import('pg').PoolClient | undefined} conn
+     * @returns {Promise<Todo>}
+     */
+    async insert(userIdx, createDao, conn = this.pool) {
+        const queryResult = await conn.query(
+            `INSERT INTO todo_tb
+                (user_idx, title, contens)
+            VALUES
+                ($1, $2, $3)
+            RETURNING
+                idx,
+                user_idx AS "userIdx",
+                user_tb.nickname AS "userNickname",
+                title,
+                contents,
+                created_at AS "createdAt",
+                deleted_at AS "deletedAt"
+            JOIN
+                user_tb
+            ON
+                user_tb.idx = todo_tb.user_idx`,
+            [userIdx, createDao.title, createDao.contents]
+        );
+
+        return queryResult.rows[0];
     }
 
     /**
