@@ -7,7 +7,11 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "bcrypt": "^5.1.1",
         "express": "^4.19.2",
         "pg": "^8.11.5"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "^5.0.2"
     }
 }
