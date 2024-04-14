@@ -61,4 +61,14 @@ module.exports = class TodoService {
             contents: updateDto.contents,
         });
     }
+
+    /**
+     * Delete todo by idx
+     *
+     * @param {number} idx
+     * @returns {Promise<void>}
+     */
+    async deleteTodoByIdx(idx) {
+        await this.todoRepository.deleteByIdx(idx);
+    }
 };
