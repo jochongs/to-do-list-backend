@@ -10,14 +10,17 @@ const UserRepository = require('./user.repository');
 module.exports = class UserService {
     userRepository;
     hashService;
+    pgPool;
 
     /**
      * @param {UserRepository} userRepository
      * @param {HashService} hashService
+     * @param {import('pg').Pool} pgPool
      */
-    constructor(userRepository, hashService) {
+    constructor(userRepository, hashService, pgPool) {
         this.userRepository = userRepository;
         this.hashService = hashService;
+        this.pgPool = pgPool;
     }
 
     /**

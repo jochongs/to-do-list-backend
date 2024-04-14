@@ -4,12 +4,13 @@ const JwtService = require('../common/jwt.service');
 const AuthService = require('./auth/auth.service');
 const TodoService = require('./todo/todo.service');
 const UserService = require('./user/user.service');
+const pgPool = require('../common/database/pgPool');
 
 const hashService = new HashService();
 const jwtService = new JwtService();
 
 const todoService = new TodoService(todoRepository);
-const userService = new UserService(userRepository, hashService);
+const userService = new UserService(userRepository, hashService, pgPool);
 const authService = new AuthService(userRepository, jwtService, userService, hashService);
 
 module.exports = {
