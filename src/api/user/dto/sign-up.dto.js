@@ -1,4 +1,4 @@
-const { BadRequestException } = require('../../exception/BadRequestException');
+const { BadRequestException } = require('../../../exception/BadRequestException');
 
 module.exports = class SignUpDto {
     /**

@@ -1,4 +1,4 @@
-const NotFoundException = require('../../exception/NotFoundException');
+const NotFoundException = require('../../../exception/NotFoundException');
 
 module.exports = class UserNotFoundException extends NotFoundException {
     /**
