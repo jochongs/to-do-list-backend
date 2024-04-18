@@ -1,4 +1,4 @@
-const LoginUserEntity = require('../auth/entity/LoginUserEntity');
+const LoginUserEntity = require('../auth/entity/login-user.entity');
 const CreateTodoDto = require('./dto/create-todo.dto');
 const GetTodoDto = require('./dto/get-todo.dto');
 const UpdateTodoDto = require('./dto/update-todo.dto');

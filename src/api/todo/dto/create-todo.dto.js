@@ -30,7 +30,7 @@ module.exports = class CreateTodoDto {
         }
 
         return new CreateTodoDto({
-            title: data.contents,
+            title: data.title,
             contents: data.contents,
         });
     }
