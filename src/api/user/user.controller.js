@@ -1,4 +1,4 @@
-const LoginUserEntity = require('../auth/entity/LoginUserEntity');
+const LoginUserEntity = require('../auth/entity/login-user.entity');
 const SignUpDto = require('./dto/sign-up.dto');
 const UpdateUserDto = require('./dto/update-user.dto');
 const UserService = require('./user.service');
