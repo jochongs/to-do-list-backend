@@ -11,7 +11,7 @@ module.exports = class AuthController {
         this.authService = authService;
     }
 
-    async login(req, res) {
+    login = async (req, res) => {
         const loginDto = LoginDto.createLgoinDto(req.body);
 
         const { jwt } = await this.authService.login(loginDto);
@@ -19,5 +19,5 @@ module.exports = class AuthController {
         res.status(200).send({
             token: jwt,
         });
-    }
+    };
 };

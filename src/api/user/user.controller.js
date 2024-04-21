@@ -13,15 +13,15 @@ module.exports = class UserController {
         this.userService = userService;
     }
 
-    async signUp(req, res) {
+    signUp = async (req, res) => {
         const signUpDto = SignUpDto.createSignUpDto(req.body);
 
         await this.userService.signUp(signUpDto);
 
         res.status(201).end();
-    }
+    };
 
-    async getMyInfo(req, res) {
+    getMyInfo = async (req, res) => {
         const loginUser = LoginUserEntity.createLoginUserEntity(req.user);
 
         const userEntity = await this.userService.getUserByIdx(loginUser);
@@ -29,22 +29,22 @@ module.exports = class UserController {
         res.status(200).send({
             user: userEntity,
         });
-    }
+    };
 
-    async updateMyInfo(req, res) {
+    updateMyInfo = async (req, res) => {
         const loginUser = LoginUserEntity.createLoginUserEntity(req.user);
         const updateDto = UpdateUserDto.createUpdateDto(req.body);
 
         await this.userService.updateUserByIdx(loginUser.idx, updateDto);
 
         res.status(201).end();
-    }
+    };
 
-    async withdrawal(req, res) {
+    withdrawal = async (req, res) => {
         const loginUser = LoginUserEntity.createLoginUserEntity(req.user);
 
         await this.userService.deleteUserByIdx(loginUser.idx);
 
         res.status(201).end();
-    }
+    };
 };

@@ -15,7 +15,7 @@ module.exports = class TodoController {
         this.todoService = todoService;
     }
 
-    async getMyTodo(req, res) {
+    getMyTodo = async (req, res) => {
         const loginUser = LoginUserEntity.createLoginUserEntity(req.user);
         const getMyTodoDto = GetTodoDto.createGetTodoDto({
             page: req.query.page,
@@ -27,9 +27,9 @@ module.exports = class TodoController {
         res.status(200).send({
             todoList,
         });
-    }
+    };
 
-    async createTodo(req, res) {
+    createTodo = async (req, res) => {
         const loginUser = LoginUserEntity.createLoginUserEntity(req.user);
         const createDto = CreateTodoDto.createTodoDto(req.body);
 
@@ -38,9 +38,9 @@ module.exports = class TodoController {
         res.status(200).send({
             todo,
         });
-    }
+    };
 
-    async updateTodo(req, res) {
+    updateTodo = async (req, res) => {
         const loginUser = LoginUserEntity.createLoginUserEntity(req.user);
         const todoIdx = Number(req.params.idx);
 
@@ -55,9 +55,9 @@ module.exports = class TodoController {
         await this.todoService.updateTodoByIdx(todoIdx, updateDto);
 
         res.status(201).end();
-    }
+    };
 
-    async deleteTodo(req, res) {
+    deleteTodo = async (req, res) => {
         const loginUser = LoginUserEntity.createLoginUserEntity(req.user);
         const todoIdx = Number(req.params.idx);
 
@@ -70,5 +70,5 @@ module.exports = class TodoController {
         await this.todoService.deleteTodoByIdx(todoIdx);
 
         res.status(201).end();
-    }
+    };
 };
